@@ -43,6 +43,108 @@ This structure is designed to facilitate easy navigation and updates to the docu
   - Branch naming convention: `hotfix/<fix-description>`.
   - Example: `hotfix/correct-typo`.
 
+## Writing Commits for Changelog
+
+To ensure that commits are correctly categorized and displayed in the changelog, follow the **Conventional Commits** format:
+
+### Commit Message Format
+
+Commit messages should use the following structure:
+
+```bash
+<type>(<optional scope>): <subject>
+<optional body>
+<optional footer>
+```
+
+
+- **Type**: This is required and must be one of the following: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, or `chore`. The type defines the nature of the change.
+- **Scope**: An optional part that indicates which module, feature, or component the change affects. This is written inside parentheses after the type.
+- **Subject**: A short description of the change, using imperative mood (e.g., "add feature" instead of "added feature"). This should be concise (50 characters or less).
+- **Body**: Optional, but useful for more detailed explanations or reasoning behind the change.
+- **Footer**: Typically used to reference breaking changes or issues closed.
+
+### Commit Types
+
+- **`feat:`**: Introduces a new feature.
+  - Example: `feat(auth): add user authentication`
+- **`fix:`**: Fixes a bug.
+  - Example: `fix(api): resolve CORS error`
+- **`perf:`**: Improves performance.
+  - Example: `perf(api): optimize database queries`
+- **`refactor:`**: Refactors code without changing its functionality.
+  - Example: `refactor(ui): simplify header component`
+- **`style:`**: Changes that don’t affect functionality (e.g., formatting, whitespace).
+  - Example: `style(css): fix button alignment`
+- **`test:`**: Adds or modifies tests.
+  - Example: `test(auth): add test for login flow`
+- **`docs:`**: Adds or updates documentation.
+  - Example: `docs(readme): update setup instructions`
+- **`chore:`**: Maintenance tasks like dependency updates or renaming files.
+  - Example: `chore(deps): update npm dependencies`
+
+### Special Notes
+
+- **Breaking Changes**: If your commit introduces a breaking change, include `Breaking:` or `Breaking changes:` in the commit message's footer, describing the change.
+  - Example:
+    ```
+    feat(auth): add OAuth support
+    
+    Breaking changes: OAuth support replaces the old API key system.
+    ```
+
+- **Short Hash**: For readability, short hashes (like `[abc123]`) are appended to the end of each commit in the changelog, but these may be commented out if there are file size limitations. If you wish to display them, ensure they're enabled in the template.
+
+### Example Commit Messages
+
+- **Feature Commit**:
+```bash
+feat(events): add ability to create recurring events
+```
+
+- **Bug Fix Commit**:
+```bash
+fix(calendar): resolve date picker display issue on mobile
+```
+
+- **Documentation Commit**:
+```bash
+docs(api): update API endpoint documentation
+```
+
+- **Refactor Commit**:
+```bash
+refactor(profile): simplify user profile logic
+```
+
+- **Performance Improvement Commit**:
+```bash
+perf(database): optimize query for user search
+```
+
+### How This Works in the Changelog
+
+Your `auto-changelog` tool will categorize commits based on the types defined in your commit messages, like this:
+
+- **Features** (`feat`): Will be grouped under a "Features" heading in the changelog.
+- **Fixes** (`fix`): Will be grouped under a "Bug Fixes" heading.
+- **Other types** like `refactor`, `style`, and `perf` will also get their own respective headings.
+
+Each commit message will be stripped of its type and scope in the subject line, as the headings will categorize them already, and the commit message itself will be displayed.
+
+### Running the Changelog
+
+Before updating the changelog, make sure you have the `auto-changelog` dependency installed. If you haven't done so, run:
+
+```bash
+npm install
+```
+To update the changelog for version 2.0, use the following command:
+
+```bash
+npm run changelog:v2
+```
+
 ### Pull Request Guidelines
 
 - Create a new pull request when your feature branch is ready.
@@ -64,15 +166,3 @@ This structure is designed to facilitate easy navigation and updates to the docu
 - Ensure all checks pass.
 - Changelog is updated, reflecting the new version (if applicable).
 - Use `git merge` to integrate changes into the main branch.
-
-### Running the Changelog
-Before updating the changelog, make sure you have the `auto-changelog` dependency installed. If you haven't done so, run:
-
-```bash
-npm install
-```
-To update the changelog for version 2.0, use the following command:
-
-```bash
-npm run changelog:v2
-```
