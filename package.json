@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "auto-changelog": "^2.5.0"
+  },
+  "scripts": {
+    "changelog:v2": "auto-changelog -p"
+  },
+  "auto-changelog": {
+    "unreleased": false,
+    "output": "changelog/v2.0.md",
+    "template": "templates/changelog-template.hbs",
+    "compare": false,
+    "commitLimit": false
+  }
+}
